@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.fadeButton.setOnClickListener {
             fade()
+        }
+
+        binding.colorizeButton.setOnClickListener {
+            colorize()
         }
 
         setContentView(binding.root)
@@ -82,5 +87,20 @@ class MainActivity : AppCompatActivity() {
         animator.disableViewDuringAnimation(binding.fadeButton)
         animator.start()
     }
+
+    private fun colorize() {
+        val animator = ObjectAnimator.ofArgb(
+            binding.star.parent,
+            "backgroundColor",
+            Color.BLACK,
+            Color.RED,
+        )
+        animator.duration = 500
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(binding.colorizeButton)
+        animator.start()
+    }
+
 
 }

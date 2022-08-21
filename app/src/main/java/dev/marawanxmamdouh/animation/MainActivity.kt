@@ -17,7 +17,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater, null, false)
 
         binding.rotateButton.setOnClickListener {
-            rotateButton()
+            rotate()
+        }
+
+        binding.translateButton.setOnClickListener {
+            translate()
         }
 
         setContentView(binding.root)
@@ -35,10 +39,19 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun rotateButton() {
+    private fun rotate() {
         val animator = ObjectAnimator.ofFloat(binding.star, View.ROTATION, -360f, 0f)
         animator.duration = 1000
         animator.disableViewDuringAnimation(binding.rotateButton)
         animator.start()
     }
+
+    private fun translate() {
+        val animator = ObjectAnimator.ofFloat(binding.star, View.TRANSLATION_X, 300f)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(binding.translateButton)
+        animator.start()
+    }
+
 }

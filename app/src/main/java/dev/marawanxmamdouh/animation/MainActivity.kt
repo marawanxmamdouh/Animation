@@ -23,19 +23,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    private fun rotateButton() {
-        val animator = ObjectAnimator.ofFloat(binding.star, View.ROTATION, -360f, 0f)
-        animator.duration = 1000
-        animator.addListener(object : AnimatorListenerAdapter() {
+    private fun ObjectAnimator.disableViewDuringAnimation(view: View) {
+        addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
-                binding.rotateButton.isEnabled = false
+                view.isEnabled = false
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                super.onAnimationEnd(animation)
-                binding.rotateButton.isEnabled = true
+                view.isEnabled = true
             }
         })
+    }
+
+    private fun rotateButton() {
+        val animator = ObjectAnimator.ofFloat(binding.star, View.ROTATION, -360f, 0f)
+        animator.duration = 1000
+        animator.disableViewDuringAnimation(binding.rotateButton)
         animator.start()
     }
 }
